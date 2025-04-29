@@ -12,11 +12,14 @@ struct ContentView: View {
         NavigationStack {
             HStack {
                 VStack(alignment: .leading, spacing: 4.0) {
-                    NavigationLink("Noise Shader View") {
+                    NavigationLink("Black and White Noise") {
                         NoiseShaderView()
                     }
-                    NavigationLink("Add Grain Shader View") {
+                    NavigationLink("Add Grain To Gradients") {
                         AddGrainShaderView()
+                    }
+                    NavigationLink("Add Grain To Photo") {
+                        AddGrainToPhotoView()
                     }
                 }
                 .padding()
