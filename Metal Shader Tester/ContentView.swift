@@ -9,13 +9,22 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            HStack {
+                VStack(alignment: .leading, spacing: 4.0) {
+                    NavigationLink("Noise Shader View") {
+                        NoiseShaderView()
+                    }
+                    NavigationLink("Add Grain Shader View") {
+                        AddGrainShaderView()
+                    }
+                }
+                .padding()
+                Spacer()
+            }
+            Spacer()
         }
-        .padding()
+        .navigationTitle("Bob's yer uncle.")
     }
 }
 
