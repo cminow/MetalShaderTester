@@ -12,8 +12,8 @@ using namespace metal;
 [[stitchable]] half4 addGrain(float2 position, SwiftUI::Layer layer) {
     half4 sample = layer.sample(position);
     half originalAlpha = sample.a;
-    float value = fract(sin(dot(position, float2(12.9898, 78.233))) * 43758.5453) * 0.5;
-    sample += value;
+    float value = fract(sin(dot(position, float2(12.9898, 78.233))) * 43758.5453) - 0.5;
+    sample -= value * 0.5;
     sample.a = originalAlpha;
     return sample;
 }

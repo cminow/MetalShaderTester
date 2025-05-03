@@ -21,6 +21,10 @@ struct ContentView: View {
                     NavigationLink("Add Grain To Photo") {
                         AddGrainToPhotoView()
                     }
+                    
+                    NavigationLink("Experiments with Random") {
+                        RandomExperimentsView()
+                    }
                 }
                 .padding()
                 Spacer()
