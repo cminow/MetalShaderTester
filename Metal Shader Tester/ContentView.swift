@@ -69,6 +69,17 @@ struct ContentView: View {
                         }
                         
                     }
+
+                    NavigationLink {
+                        SimpleGradientView()
+                    } label: {
+                        HStack {
+                            Rectangle()
+                                .frame(width: thumbnailWidth, height: thumbnailWidth)
+                                .colorEffect(ShaderLibrary.simpleGradient(.float2(thumbnailWidth, thumbnailWidth)))
+                            Text("Simple Gradient")
+                        }
+                    }
                 }
                 .padding()
                 Spacer()
