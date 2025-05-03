@@ -15,7 +15,7 @@ struct AddGrainShaderView: View {
                 backgroundGradient
                     .visualEffect { content, proxy in
                         content
-                            .layerEffect(ShaderLibrary.addGrain(), maxSampleOffset: .zero)
+                            .layerEffect(ShaderLibrary.addGrain(.float(0.2)), maxSampleOffset: .zero)
                     }
             }
         }

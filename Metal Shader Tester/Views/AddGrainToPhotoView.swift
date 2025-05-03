@@ -15,7 +15,7 @@ struct AddGrainToPhotoView: View {
                 Image("roseImage")
                     .visualEffect { content, proxy in
                         content
-                            .layerEffect(ShaderLibrary.addGrain(), maxSampleOffset: .zero)
+                            .layerEffect(ShaderLibrary.addGrain(.float(0.75)), maxSampleOffset: .zero)
                     }
             }
         }
