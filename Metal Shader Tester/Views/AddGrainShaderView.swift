@@ -10,9 +10,9 @@ import SwiftUI
 struct AddGrainShaderView: View {
     var body: some View {
         VStack {
-            backgroundGradient
+            BackgroundGradient()
             ZStack {
-                backgroundGradient
+                BackgroundGradient()
                     .visualEffect { content, proxy in
                         content
                             .layerEffect(ShaderLibrary.addGrain(.float(0.2)), maxSampleOffset: .zero)
@@ -20,18 +20,6 @@ struct AddGrainShaderView: View {
             }
         }
         
-    }
-
-    private var backgroundGradient: MeshGradient {
-        MeshGradient(width: 3, height: 3, points: [
-            [0.0, 0.0], [0.5, 0.0], [1.0, 0.0],
-            [0.0, 0.5], [0.5, 0.5], [1.0, 0.5],
-            [0.0, 1.0], [0.5, 1.0], [1.0, 1.0]
-        ], colors: [
-            Color(.systemRed), Color(.systemTeal), Color(.systemOrange),
-            Color(.systemCyan), Color(.systemMint), Color(.systemIndigo),
-            Color(.systemIndigo), Color(.systemYellow), Color(.systemRed)
-        ])
     }
 }
 

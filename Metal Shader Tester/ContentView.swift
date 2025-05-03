@@ -8,22 +8,66 @@
 import SwiftUI
 
 struct ContentView: View {
+    private let thumbnailWidth: CGFloat = 50.0
+    
     var body: some View {
         NavigationStack {
             HStack {
                 VStack(alignment: .leading, spacing: 4.0) {
-                    NavigationLink("Black and White Noise") {
+                   
+                    NavigationLink {
                         NoiseShaderView()
+                    } label: {
+                        HStack {
+                            Rectangle()
+                                .frame(width: thumbnailWidth, height: thumbnailWidth)
+                                .colorEffect(ShaderLibrary.noise())
+                            Text("Black and White Noise")
+                        }
+                        
                     }
-                    NavigationLink("Add Grain To Gradients") {
+
+                    NavigationLink {
                         AddGrainShaderView()
+                    } label: {
+                        HStack {
+                            BackgroundGradient()
+                                .frame(width: thumbnailWidth, height: thumbnailWidth)
+                                .visualEffect { content, proxy in
+                                    content
+                                        .layerEffect(ShaderLibrary.addGrain(.float(0.2)), maxSampleOffset: .zero)
+                                }
+                                
+                            Text("Add Grain To Gradients")
+                        }
+                        
                     }
-                    NavigationLink("Add Grain To Photo") {
+
+                    NavigationLink {
                         AddGrainToPhotoView()
+                    } label: {
+                        HStack {
+                            Image("roseImage")
+                                .resizable()
+                                .frame(width: thumbnailWidth, height: thumbnailWidth)
+                                .visualEffect { content, proxy in
+                                    content
+                                        .layerEffect(ShaderLibrary.addGrain(.float(0.75)), maxSampleOffset: .zero)
+                                }
+                            Text("Add Grain To Photo")
+                        }
                     }
                     
-                    NavigationLink("Experiments with Random") {
+                    NavigationLink {
                         RandomExperimentsView()
+                    } label: {
+                        HStack {
+                            Rectangle()
+                                .frame(width: thumbnailWidth, height: thumbnailWidth)
+                                .colorEffect(ShaderLibrary.randomExperiment())
+                            Text("Experiments with Random")
+                        }
+                        
                     }
                 }
                 .padding()
