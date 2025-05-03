@@ -80,6 +80,20 @@ struct ContentView: View {
                             Text("Simple Gradient")
                         }
                     }
+
+                    NavigationLink {
+                        SimpleSineWaveView()
+                    } label: {
+                        HStack {
+                            Rectangle()
+                                .frame(width: thumbnailWidth, height: thumbnailWidth)
+                                .visualEffect { content, proxy in
+                                    content
+                                        .layerEffect(ShaderLibrary.simpleSineWave(.float2(thumbnailWidth, thumbnailWidth)), maxSampleOffset: .zero)
+                                }
+                            Text("Simple SineWave")
+                        }
+                    }
                 }
                 .padding()
                 Spacer()
