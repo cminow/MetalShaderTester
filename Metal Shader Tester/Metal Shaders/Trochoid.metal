@@ -14,11 +14,10 @@ using namespace metal;
     float2 uv = (position * 2.0 - size) / size.y;
     
     // Multiply the
-    float frequency = 4.0;
-    float wave1 = cos(position.x / (size.x / (frequency * 3.141592 * 2.0))) * 10 * sin(position.y / (size.y / (frequency * 3.141592 * 2.0))) * 10;
-//    float wave2 = sin(position.y / (size.y / (frequency * 3.141592 * 2.0))) * 10;
+    float frequency = 8.0;
+    float wave = cos((position.x + (time * 0.0)) / (size.x / (frequency * 3.141592 * 2.0))) * 10 * sin(position.y / (size.y / (frequency * 3.141592 * 2.0))) * sin(time) * 10.0;
 
-    float luma = abs(1.0 / (100 * uv.y + wave1))/* + abs(1.0 / (100 * uv.x + wave2))*/;
+    float luma = abs(10.0 / (100 * uv.y + wave));
     
     return half4(luma, luma - 0.5, 0.0, 1.0);
 }
