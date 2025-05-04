@@ -9,11 +9,14 @@ import SwiftUI
 
 struct TrochoidSpiralView: View {
     var body: some View {
-        Rectangle()
-            .visualEffect { content, proxy in
-                content
-                    .layerEffect(ShaderLibrary.trochoid(.float2(proxy.size)), maxSampleOffset: .zero)
-            }
+        TimelineView(.periodic(from: .now, by: 0.1)) { context in
+//            let _ = print(Date.now.timeIntervalSinceReferenceDate)
+            Rectangle()
+                .visualEffect { content, proxy in
+                    content
+                        .layerEffect(ShaderLibrary.trochoid(.float2(proxy.size), .float(Date.now.timeIntervalSinceReferenceDate)), maxSampleOffset: .zero)
+                }
+        }
     }
 }
 
