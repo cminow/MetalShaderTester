@@ -10,9 +10,12 @@
 using namespace metal;
 
 [[stitchable]] half4 simpleSineWave(float2 position, SwiftUI::Layer layer, float2 size) {
-    float2 uv = (position / size.x) * 2.0 - 1.0;
+    // Take the aspect ratio into account here:
+    float2 uv = (position * 2.0 - size) / size.y;
     
-    float wave = sin(position.x / 12) * 25;
+    // Multiply the
+    float frequency = 3.0;
+    float wave = sin(position.x / (size.x / (frequency * 3.141592 * 2.0))) * 10;
     
     float luma = abs(1.0 / (100 * uv.y + wave));
     
