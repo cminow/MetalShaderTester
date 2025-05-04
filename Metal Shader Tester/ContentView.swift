@@ -94,6 +94,20 @@ struct ContentView: View {
                             Text("Simple SineWave")
                         }
                     }
+
+                    NavigationLink {
+                        TrochoidSpiralView()
+                    } label: {
+                        HStack {
+                            Rectangle()
+                                .frame(width: thumbnailWidth, height: thumbnailWidth)
+                                .visualEffect { content, proxy in
+                                    content
+                                        .layerEffect(ShaderLibrary.trochoid(.float2(thumbnailWidth, thumbnailWidth)), maxSampleOffset: .zero)
+                                }
+                            Text("Trochoid Spiral")
+                        }
+                    }
                 }
                 .padding()
                 Spacer()
