@@ -108,6 +108,17 @@ struct ContentView: View {
                             Text("Trochoid Spiral")
                         }
                     }
+
+                    NavigationLink {
+                        PolkaDots()
+                    } label: {
+                        HStack {
+                            Rectangle()
+                                .frame(width: thumbnailWidth, height: thumbnailWidth)
+                                .colorEffect(ShaderLibrary.polkaDots(.float2(thumbnailWidth, thumbnailWidth), .float(4.0)))
+                            Text("Polka Dots")
+                        }
+                    }
                 }
                 .padding()
                 Spacer()
