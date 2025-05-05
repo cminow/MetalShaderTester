@@ -16,7 +16,7 @@ struct TrochoidSpiralView: View {
             Rectangle()
                 .visualEffect { content, proxy in
                     content
-                        .layerEffect(ShaderLibrary.trochoid(.float2(proxy.size), .float(time)), maxSampleOffset: .zero)
+                        .layerEffect(ShaderLibrary.animated(.float2(proxy.size), .float(time)), maxSampleOffset: .zero)
                 }
         }
     }

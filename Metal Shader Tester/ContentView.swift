@@ -103,7 +103,7 @@ struct ContentView: View {
                                 .frame(width: thumbnailWidth, height: thumbnailWidth)
                                 .visualEffect { content, proxy in
                                     content
-                                        .layerEffect(ShaderLibrary.trochoid(.float2(thumbnailWidth, thumbnailWidth), .float(1.0)), maxSampleOffset: .zero)
+                                        .layerEffect(ShaderLibrary.animated(.float2(thumbnailWidth, thumbnailWidth), .float(1.0)), maxSampleOffset: .zero)
                                 }
                             Text("Trochoid Spiral")
                         }
