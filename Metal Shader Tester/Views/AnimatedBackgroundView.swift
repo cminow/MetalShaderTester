@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TrochoidSpiralView: View {
+struct AnimatedBackgroundView: View {
     @State private var start: Date = Date()
     var body: some View {
         TimelineView(.periodic(from: .now, by: 0.050)) { context in
@@ -23,5 +23,5 @@ struct TrochoidSpiralView: View {
 }
 
 #Preview {
-    TrochoidSpiralView()
+    AnimatedBackgroundView()
 }

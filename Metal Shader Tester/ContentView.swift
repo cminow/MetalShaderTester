@@ -96,7 +96,7 @@ struct ContentView: View {
                     }
 
                     NavigationLink {
-                        TrochoidSpiralView()
+                        AnimatedBackgroundView()
                     } label: {
                         HStack {
                             Rectangle()
@@ -105,7 +105,7 @@ struct ContentView: View {
                                     content
                                         .layerEffect(ShaderLibrary.animated(.float2(thumbnailWidth, thumbnailWidth), .float(1.0)), maxSampleOffset: .zero)
                                 }
-                            Text("Trochoid Spiral")
+                            Text("Animated")
                         }
                     }
 
