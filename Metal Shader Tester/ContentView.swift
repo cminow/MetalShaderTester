@@ -22,6 +22,7 @@ struct ContentView: View {
                             Rectangle()
                                 .frame(width: thumbnailWidth, height: thumbnailWidth)
                                 .colorEffect(ShaderLibrary.noise())
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
                             Text("Black and White Noise")
                         }
                         
@@ -37,6 +38,7 @@ struct ContentView: View {
                                     content
                                         .layerEffect(ShaderLibrary.addGrain(.float(0.2)), maxSampleOffset: .zero)
                                 }
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
                                 
                             Text("Add Grain To Gradients")
                         }
@@ -54,6 +56,7 @@ struct ContentView: View {
                                     content
                                         .layerEffect(ShaderLibrary.addGrain(.float(0.75)), maxSampleOffset: .zero)
                                 }
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
                             Text("Add Grain To Photo")
                         }
                     }
@@ -65,6 +68,7 @@ struct ContentView: View {
                             Rectangle()
                                 .frame(width: thumbnailWidth, height: thumbnailWidth)
                                 .colorEffect(ShaderLibrary.randomExperiment())
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
                             Text("Experiments with Random")
                         }
                         
@@ -77,6 +81,7 @@ struct ContentView: View {
                             Rectangle()
                                 .frame(width: thumbnailWidth, height: thumbnailWidth)
                                 .colorEffect(ShaderLibrary.simpleGradient(.float2(thumbnailWidth, thumbnailWidth)))
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
                             Text("Simple Gradient")
                         }
                     }
@@ -91,6 +96,7 @@ struct ContentView: View {
                                     content
                                         .layerEffect(ShaderLibrary.simpleSineWave(.float2(thumbnailWidth, thumbnailWidth)), maxSampleOffset: .zero)
                                 }
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
                             Text("Simple SineWave")
                         }
                     }
@@ -105,6 +111,7 @@ struct ContentView: View {
                                     content
                                         .layerEffect(ShaderLibrary.animated(.float2(thumbnailWidth, thumbnailWidth), .float(1.0)), maxSampleOffset: .zero)
                                 }
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
                             Text("Animated")
                         }
                     }
@@ -116,6 +123,7 @@ struct ContentView: View {
                             Rectangle()
                                 .frame(width: thumbnailWidth, height: thumbnailWidth)
                                 .colorEffect(ShaderLibrary.polkaDots(.float2(thumbnailWidth, thumbnailWidth), .float(4.0)))
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
                             Text("Polka Dots")
                         }
                     }
