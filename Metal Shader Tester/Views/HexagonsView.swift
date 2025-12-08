@@ -9,7 +9,8 @@ import SwiftUI
 
 struct HexagonsView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Rectangle()
+            .colorEffect(ShaderLibrary.hexagonTile(.float(100.0)))
     }
 }
 

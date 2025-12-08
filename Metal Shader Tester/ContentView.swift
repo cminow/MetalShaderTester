@@ -15,6 +15,19 @@ struct ContentView: View {
             HStack {
                 VStack(alignment: .leading, spacing: 4.0) {
                    
+/*                    NavigationLink {
+                        HexagonsView()
+                    } label: {
+                        HStack {
+                            Rectangle()
+                                .frame(width: thumbnailWidth, height: thumbnailWidth)
+                                .colorEffect(ShaderLibrary.hexagonTile(.float(20.0)))
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                            Text("Hexagons")
+                        }
+                        
+                    }*/
+                    
                     NavigationLink {
                         NoiseShaderView()
                     } label: {
