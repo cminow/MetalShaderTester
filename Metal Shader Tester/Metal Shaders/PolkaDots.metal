@@ -18,6 +18,7 @@ using namespace metal;
     float luma;
     
     if (row % 2 == 0) {
+        position.x += radius / 2.0;
         float2 fraction = fract(position / radius);
         float distanceToCenter = distance(fraction, float2(0.5, 0.5));
         
