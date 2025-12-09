@@ -23,7 +23,7 @@ struct ContentView: View {
                                 .frame(width: thumbnailWidth, height: thumbnailWidth)
                                 .visualEffect { content, proxy in
                                     content
-                                        .layerEffect(ShaderLibrary.pixelRandomizer(.float(0.0), .float2(proxy.size)), maxSampleOffset: proxy.size)
+                                        .layerEffect(ShaderLibrary.pixelRandomizer(.float(10.0), .float2(proxy.size)), maxSampleOffset: .zero)
                                 }
                                 .clipShape(RoundedRectangle(cornerRadius: 8))
                             Text("Pixel Randomizer")
