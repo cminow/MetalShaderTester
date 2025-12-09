@@ -14,7 +14,22 @@ struct ContentView: View {
         NavigationStack {
             HStack {
                 VStack(alignment: .leading, spacing: 4.0) {
-                   
+                    NavigationLink {
+                        PixelRandomizer()
+                    } label: {
+                        HStack {
+                            Image("roseImage")
+                                .resizable()
+                                .frame(width: thumbnailWidth, height: thumbnailWidth)
+                                .visualEffect { content, proxy in
+                                    content
+                                        .layerEffect(ShaderLibrary.pixelRandomizer(.float(0.0), .float2(proxy.size)), maxSampleOffset: proxy.size)
+                                }
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                            Text("Pixel Randomizer")
+                        }
+                        
+                    }
 /*                    NavigationLink {
                         HexagonsView()
                     } label: {
