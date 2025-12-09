@@ -18,12 +18,12 @@ struct PixelRandomizer: View {
                         .layerEffect(ShaderLibrary.pixelRandomizer(.float(maxOffset), .float2(proxy.size)), maxSampleOffset: .zero)
                 }
 
-            Slider(value: $maxOffset, in: 0.0...200.0) {
+            Slider(value: $maxOffset, in: 0.0...400.0) {
                Text("Shoulder Value")
             } minimumValueLabel: {
                 Text("0.0")
             } maximumValueLabel: {
-                Text("200.0")
+                Text("400.0")
             }
             .padding()
         }
