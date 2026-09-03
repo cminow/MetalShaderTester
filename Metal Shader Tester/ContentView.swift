@@ -15,6 +15,25 @@ struct ContentView: View {
             HStack {
                 VStack(alignment: .leading, spacing: 4.0) {
                     NavigationLink {
+                        TruchetView()
+                    } label: {
+                        HStack {
+                            Color.black
+                                .frame(width: thumbnailWidth, height: thumbnailWidth)
+                                .visualEffect { content, proxy in
+                                    content.layerEffect(ShaderLibrary.truchetEffect(
+                                        .float(20),
+                                        .float(4),
+                                        .float(1)
+                                    ), maxSampleOffset: .zero)
+                                }
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                                
+                            Text("Truchet")
+                        }
+                    }
+
+                    NavigationLink {
                         PixelRandomizer()
                     } label: {
                         HStack {
