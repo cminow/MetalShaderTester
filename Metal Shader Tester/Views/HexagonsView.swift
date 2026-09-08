@@ -10,7 +10,9 @@ import SwiftUI
 struct HexagonsView: View {
     var body: some View {
         Rectangle()
-            .colorEffect(ShaderLibrary.hexagonTile(.float(100.0)))
+            .fill(.blue)
+            .hexPixellateLayer(scale: 16)
+            
     }
 }
 

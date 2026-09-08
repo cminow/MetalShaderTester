@@ -49,18 +49,19 @@ struct ContentView: View {
                         }
                         
                     }
-/*                    NavigationLink {
+                    NavigationLink {
                         HexagonsView()
                     } label: {
                         HStack {
                             Rectangle()
+                                .fill(.green)
                                 .frame(width: thumbnailWidth, height: thumbnailWidth)
-                                .colorEffect(ShaderLibrary.hexagonTile(.float(20.0)))
+                                .hexPixellateLayer(scale: 8)
                                 .clipShape(RoundedRectangle(cornerRadius: 8))
                             Text("Hexagons")
                         }
                         
-                    }*/
+                    }
                     
                     NavigationLink {
                         NoiseShaderView()

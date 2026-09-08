@@ -9,39 +9,41 @@
 #include <SwiftUI/SwiftUI_Metal.h>
 using namespace metal;
 
-[[ stitchable ]] half4 hexagonTile(
+// From Apple's documentation: https://developer.apple.com/library/archive/samplecode/MetalShaderShowcase/Listings/MetalShaderShowcase_AAPLWoodShader_metal.html
+// Generate a random float in the range [0.0f, 1.0f] using x, y, and z (based on the xor128 algorithm)
+float newRand(int x, int y, int z) {
+    int seed = x + y * 57 + z * 241;
+    seed = (seed<< 13) ^ seed;
+    return (( 1.0 - ( (seed * (seed * seed * 15731 + 789221) + 1376312589) & 2147483647) / 1073741824.0f) + 1.0f) / 2.0f;
+}
+
+[[ stitchable ]] half4 hexPixelateLayer(
     float2 position,
-    half4 color,
+    SwiftUI::Layer layer,
+    float2 size, // 💡 Pass the view boundaries
     float scale
 ) {
-    // These constants define the hexagon geometry
-    float2 hexSize = float2(1.0, sqrt(3.0)/2.0);
-    float2 uv = position / scale;
+    float2 r = float2(1.0, 1.7320508) * scale;
+    float2 h = r * 0.5;
     
-    // Convert to a hexagonal grid coordinate space
-    float2 p = float2(uv.x, uv.y / hexSize.y);
-    float2 a = fmod(p, 2.0);
-    float2 b = fmod(p - float2(1.0, 1.0), 2.0);
+    float2 a = floor((position - h) / r) * r + h;
+    float2 b = floor(position / r) * r;
     
-    // Determine the cell index and center
-    float2 cell = floor(p);
-    if (a.x < a.y) { cell = floor(p - b); }
+    float2 distA = position - (a + h);
+    float2 distB = position - (b + h);
+    float2 center = dot(distA, distA) < dot(distB, distB) ? (a + h) : (b + h);
     
-    // Calculate the distance from the center of the hexagon
-    float2 center = cell + float2(0.5, 0.5);
-    float d = length(p - center);
+    // Clamp the center coordinates inside the view bounds.
+    // Subtracting a tiny fraction (0.5) ensures it never samples exactly on the boundary pixel.
+    float2 clampedCenter = clamp(center, float2(0.5), size - float2(0.5));
+
+    half4 sampledColor = layer.sample(clampedCenter);
+
+    float randomValue = newRand(int(clampedCenter.x), int(clampedCenter.y), 5.0) * 0.5;
     
-    // Determine the color based on the cell index
-    half4 newColor;
-    if (fmod(cell.x, 2.0) == 0.0) {
-        newColor = half4(1.0, 0.5, 0.0, 1.0); // Orange
-    } else {
-        newColor = half4(0.0, 0.15, 1.0, 1.0); // Blue
-    }
-    
-    // Create a smooth edge for the hexagon
-    // You can adjust the smoothstep values for a harder or softer edge
-    float edge = smoothstep(0.4, 0.41, d);
-    
-    return mix(newColor, color, edge);
+    sampledColor.r += randomValue;
+    sampledColor.g += randomValue;
+    sampledColor.b += randomValue;
+
+    return sampledColor;
 }
