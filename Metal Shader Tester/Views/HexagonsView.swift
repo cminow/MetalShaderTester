@@ -8,10 +8,16 @@
 import SwiftUI
 
 struct HexagonsView: View {
+    @State private var scale: Float = 32.0
     var body: some View {
-        Rectangle()
-            .fill(.blue)
-            .hexPixellateLayer(scale: 16)
+        VStack {
+            Rectangle()
+                .fill(.blue.mix(with: .red, by: 0.25))
+                .hexPixellateLayer(scale: scale)
+            Slider(value: $scale, in: 4...64)
+                .padding()
+        }
+        
             
     }
 }
