@@ -20,14 +20,25 @@ struct HexagonsView: View {
                 )
                 .hexPixellateLayer(scale: scale, hexInset: hexInset, softness: softness)
                 .clipped()
-            Slider(value: $scale, in: 4...64)
-                .padding()
             
-            Slider(value: $hexInset, in: 0.0...1.0)
-                .padding()
+            VStack(alignment: .leading) {
+                Text("Scale: \(scale.formatted(.number.precision(.fractionLength(2))))")
+                Slider(value: $scale, in: 4...128)
+            }
+            .padding()
             
-            Slider(value: $softness, in: 0.0...24.0)
-                .padding()
+            VStack(alignment: .leading) {
+                Text("Gutter: \(hexInset.formatted(.number.precision(.fractionLength(2))))")
+                Slider(value: $hexInset, in: 0.0...1.0)
+            }
+            .padding()
+            
+            VStack(alignment: .leading) {
+                Text("Edge Softness: \(softness.formatted(.number.precision(.fractionLength(2))))")
+                Slider(value: $softness, in: 0.0...24.0)
+            }
+            .padding()
+            
         }
     }
 }
