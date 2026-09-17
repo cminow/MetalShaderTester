@@ -12,13 +12,14 @@ struct HexagonsView: View {
     var body: some View {
         VStack {
             Rectangle()
-                .fill(.blue.mix(with: .red, by: 0.25))
-                .hexPixellateLayer(scale: scale)
+                .fill(
+                    LinearGradient(colors: [.black, .gray, .yellow], startPoint: .top, endPoint: .bottom)
+                )
+                .hexPixellateLayer(scale: scale, hexInset: 0.95)
+                .clipped()
             Slider(value: $scale, in: 4...64)
                 .padding()
         }
-        
-            
     }
 }
 
