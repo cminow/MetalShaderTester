@@ -23,7 +23,8 @@ float hexDistance(float2 p) {
     SwiftUI::Layer layer,
     float2 size,    // 💡 Pass the view boundaries
     float scale,
-    float hexSize   // 💡 0...1 — fraction of the cell the hexagon fills
+    float hexSize,   // 💡 0...1 — fraction of the cell the hexagon fills
+    float softness  // 💡 edge blur, in points (0 = crisp)
 ) {
     float2 r = float2(1.0, 1.7320508) * scale;
     float2 h = r * 0.5;
@@ -39,10 +40,17 @@ float hexDistance(float2 p) {
     // The inradius of a cell is scale * 0.5; hexSize shrinks it towards the centre.
     float inradius = scale * 0.5 * saturate(hexSize);
 
-    if (hexDistance(position - center) > inradius) {
-        // Outside the hexagon: hand back the original pixel untouched.
-        return layer.sample(position);
-    }
+    // Feather the edge. Half a point of softness is always applied so the
+        // hexagons stay antialiased even when `softness` is zero.
+        float feather = max(softness, 0.0) * 0.5 + 0.5;
+        float d = hexDistance(position - center);
+        float coverage = 1.0 - smoothstep(inradius - feather, inradius + feather, d);
+
+        // Fully outside the hexagon: hand back the original pixel untouched.
+        half4 original = layer.sample(position);
+        if (coverage <= 0.0) {
+            return original;
+        }
 
     // Clamp the center coordinates inside the view bounds.
     // Subtracting a tiny fraction (0.5) ensures it never samples exactly on the boundary pixel.
@@ -56,5 +64,5 @@ float hexDistance(float2 p) {
     sampledColor.g += randomValue;
     sampledColor.b += randomValue;
 
-    return sampledColor;
+    return mix(original, sampledColor, half(coverage));
 }
