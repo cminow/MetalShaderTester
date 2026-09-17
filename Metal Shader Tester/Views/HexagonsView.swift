@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HexagonsView: View {
-    @State private var scale: Float = 32.0
+    @State private var scale: Float = 12.0
     var body: some View {
         VStack {
             Rectangle()
