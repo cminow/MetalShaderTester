@@ -15,6 +15,22 @@ struct ContentView: View {
             HStack {
                 VStack(alignment: .leading, spacing: 4.0) {
                     NavigationLink {
+                        Voronoi()
+                    } label: {
+                        HStack {
+                            Color.blue
+                                .frame(width: thumbnailWidth, height: thumbnailWidth)
+                                .visualEffect { content, proxy in
+                                    content.colorEffect(ShaderLibrary.voronoiOrganic(
+                                        .float2(proxy.size),
+                                        .float(1.0)
+                                    ))
+                                }
+                            
+                            Text("Voronoi")
+                        }
+                    }
+                    NavigationLink {
                         TruchetView()
                     } label: {
                         HStack {
