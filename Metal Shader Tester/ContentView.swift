@@ -21,7 +21,7 @@ struct ContentView: View {
                             Color.red
                                 .frame(width: thumbnailWidth, height: thumbnailWidth)
                                 .visualEffect { content, proxy in
-                                    content.colorEffect(ShaderLibrary.simpleCheckerboard(.float2(proxy.size)))
+                                    content.colorEffect(ShaderLibrary.simpleCheckerboard(.float2(proxy.size), .float(6.0)))
                                 }
                                 .clipped()
                                 .clipShape(RoundedRectangle(cornerRadius: 8))

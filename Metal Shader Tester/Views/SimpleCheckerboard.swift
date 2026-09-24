@@ -11,7 +11,7 @@ struct SimpleCheckerboard: View {
     var body: some View {
         Color.red
             .visualEffect { content, proxy in
-                content.colorEffect(ShaderLibrary.simpleCheckerboard(.float2(proxy.size)))
+                content.colorEffect(ShaderLibrary.simpleCheckerboard(.float2(proxy.size), .float(16.0)))
             }
     }
 }

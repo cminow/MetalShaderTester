@@ -8,8 +8,8 @@
 #include <metal_stdlib>
 using namespace metal;
 
-[[stitchable]] half4 simpleCheckerboard(float2 position, half4 color, float2 layerSize) {
-    float gridSize = 8.0;
+[[stitchable]] half4 simpleCheckerboard(float2 position, half4 color, float2 layerSize, float gridCount) {
+    float gridSize = gridCount;
     float cellSize = min(layerSize.x, layerSize.y) / gridSize;
     
     float2 scaledUV = position / cellSize;
