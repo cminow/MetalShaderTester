@@ -8,7 +8,7 @@
 #include <metal_stdlib>
 using namespace metal;
 
-[[stitchable]] half4 opArt(float2 position, half4 color, float2 layerSize, float gridCount) {
+[[stitchable]] half4 opArt(float2 position, half4 color, float2 layerSize, float gridCount, float time) {
     float gridSize = gridCount;
     float cellSize = min(layerSize.x, layerSize.y) / gridSize;
     
@@ -17,11 +17,13 @@ using namespace metal;
     float2 localPosition = fract(scaledUV);
     float2 center = localPosition - 0.5;
     float distanceFromCenter = length(center);
-    float radius = 0.5;
+    
     
     float2 cellID = floor(scaledUV);
     float checker = fmod(cellID.x + cellID.y, 2.0);
     
+    float radius = sin(time) * 0.1 + 0.4;
+
     float brightness;
     
     if (checker < 0.5) {

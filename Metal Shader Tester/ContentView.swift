@@ -21,7 +21,13 @@ struct ContentView: View {
                             Color.red
                                 .frame(width: thumbnailWidth, height: thumbnailWidth)
                                 .visualEffect { content, proxy in
-                                    content.colorEffect(ShaderLibrary.opArt(.float2(proxy.size), .float(6.0)))
+                                    content.colorEffect(
+                                        ShaderLibrary.opArt(
+                                            .float2(proxy.size),
+                                            .float(6.0),
+                                            .float(0.0)
+                                        )
+                                    )
                                 }
                                 .clipped()
                                 .clipShape(RoundedRectangle(cornerRadius: 8))

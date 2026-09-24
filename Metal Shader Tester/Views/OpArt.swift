@@ -8,11 +8,24 @@
 import SwiftUI
 
 struct OpArt: View {
+    let startDate: Date = Date()
+
     var body: some View {
-        Color.red
-            .visualEffect { content, proxy in
-                content.colorEffect(ShaderLibrary.opArt(.float2(proxy.size), .float(16.0)))
-            }
+        TimelineView(.animation) { context in
+            let elapsed = context.date.timeIntervalSince(startDate)
+
+            Color.red
+                .visualEffect { content, proxy in
+                    content.colorEffect(
+                        ShaderLibrary.opArt(
+                            .float2(proxy.size),
+                            .float(16.0),
+                            .float(elapsed)
+                        )
+                    )
+                }
+        }
+        
     }
 }
 
