@@ -15,6 +15,21 @@ struct ContentView: View {
             HStack {
                 VStack(alignment: .leading, spacing: 4.0) {
                     NavigationLink {
+                        SimpleCheckerboard()
+                    } label: {
+                        HStack {
+                            Color.red
+                                .frame(width: thumbnailWidth, height: thumbnailWidth)
+                                .visualEffect { content, proxy in
+                                    content.colorEffect(ShaderLibrary.simpleCheckerboard(.float2(proxy.size)))
+                                }
+                                .clipped()
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                            Text("Simple Checkerboard")
+                        }
+                    }
+
+                    NavigationLink {
                         Voronoi()
                     } label: {
                         HStack {
