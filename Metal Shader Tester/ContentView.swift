@@ -18,14 +18,17 @@ struct ContentView: View {
                         Voronoi()
                     } label: {
                         HStack {
-                            Color.blue
+                            LinearGradient(colors: [.red, .blue], startPoint: .top, endPoint: .bottom)
                                 .frame(width: thumbnailWidth, height: thumbnailWidth)
                                 .visualEffect { content, proxy in
-                                    content.colorEffect(ShaderLibrary.voronoiOrganic(
-                                        .float2(proxy.size),
-                                        .float(1.0)
-                                    ))
+                                    content.layerEffect(
+                                        ShaderLibrary.voronoiOrganic(
+                                            .float2(proxy.size),
+                                            .float(1.0)
+                                    ), maxSampleOffset: CGSize(width: proxy.size.width / 15 * 2.5, height: proxy.size.height / 15 * 2.5))
                                 }
+                                .clipped()
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
                             
                             Text("Voronoi")
                         }

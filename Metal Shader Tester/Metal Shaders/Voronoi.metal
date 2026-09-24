@@ -6,58 +6,59 @@
 //
 
 #include <metal_stdlib>
+#include <SwiftUI/SwiftUI_Metal.h> // Required for SwiftUI::Layer
 using namespace metal;
 
-[[ stitchable ]] half4 voronoiOrganic(float2 position, half4 color, float2 size, float time) {
+[[stitchable]] half4 voronoiOrganic(
+                      float2 position,
+                      SwiftUI::Layer layer,
+                      float2 size,
+                      float time) {
     float2 uv = position / size;
-    // Correct for aspect ratio:
     float aspect = size.x / size.y;
     uv.x *= aspect;
     float2 scaledUV = uv * 15.0;
 
-
-
     float2 gridID = floor(scaledUV);
     float2 gridUV = fract(scaledUV);
 
-    float minDist1 = 10.0;  // Closest
-    float minDist2 = 10.0;  // Second closest
-    float2 closestID;
+    float minDist1 = 10.0;
+    float minDist2 = 10.0;
+    float2 closestID = gridID;
+    float2 closestPointAbs = gridID; // NEW: absolute position of the winning feature point, in scaledUV space
 
-    // Check 3x3 grid of neighbors
     for (int y = -1; y <= 1; y++) {
       for (int x = -1; x <= 1; x++) {
           float2 neighbor = float2(x, y);
           float2 cellID = gridID + neighbor;
 
-          // Animated random point in each cell
           float2 pointOffset = float2(
               fract(sin(dot(cellID, float2(12.9898, 78.233))) * 43758.5453),
               fract(sin(dot(cellID, float2(78.233, 12.9898))) * 43758.5453)
           );
-
-          // Add subtle animation
           pointOffset += sin(time * 2.0 + pointOffset * 6.28) * 0.1;
 
-          float2 point = neighbor + pointOffset;
+          float2 point = neighbor + pointOffset; // relative to current cell's gridUV
           float dist = length(point - gridUV);
 
           if (dist < minDist1) {
               minDist2 = minDist1;
               minDist1 = dist;
               closestID = cellID;
+              closestPointAbs = cellID + pointOffset; // NEW: point's true position in scaledUV space
           } else if (dist < minDist2) {
               minDist2 = dist;
           }
       }
     }
 
-    // Color based on cell
-    half3 cellColor = half3(
-      fract(sin(closestID.x * 12.9898) * 43758.5453),
-      fract(sin(closestID.y * 78.233) * 43758.5453),
-      fract(sin(dot(closestID, float2(45.678, 98.765))) * 43758.5453)
-    );
+    // Convert the feature point back out of scaledUV space into pixel space
+    float2 sampleUV = closestPointAbs / 15.0;
+    sampleUV.x /= aspect;              // undo the aspect correction you applied going in
+    float2 samplePos = sampleUV * size;
+    samplePos = clamp(samplePos, float2(0.5), size - float2(0.5)); // stay inside the layer bounds
 
-    return half4(cellColor, 1.0);
+    half4 cellColor = layer.sample(samplePos);
+
+    return cellColor;
 }

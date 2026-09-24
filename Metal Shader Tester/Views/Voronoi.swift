@@ -13,16 +13,16 @@ struct Voronoi: View {
     var body: some View {
         TimelineView(.animation) { context in
             let elapsed = context.date.timeIntervalSince(startDate)
-            Rectangle()
+            LinearGradient(colors: [.red, .green, .blue], startPoint: .top, endPoint: .bottom)
                 .visualEffect { content, proxy in
                     content
-                        .colorEffect(
+                        .layerEffect(
                             ShaderLibrary.voronoiOrganic(
                                 .float2(proxy.size),
                                 .float(elapsed)
-                            )
-                        )
+                            ), maxSampleOffset: CGSize(width: proxy.size.width / 15 * 2.5, height: proxy.size.height / 15 * 2.5))
                 }
+                .clipped()
         }
     }
 }
