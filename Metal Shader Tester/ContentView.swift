@@ -8,12 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
-    private let thumbnailWidth: CGFloat = 50.0
+    private let thumbnailWidth: CGFloat = 40.0
     
     var body: some View {
         NavigationStack {
             HStack {
                 VStack(alignment: .leading, spacing: 4.0) {
+                    NavigationLink {
+                        OpArt()
+                    } label: {
+                        HStack {
+                            Color.red
+                                .frame(width: thumbnailWidth, height: thumbnailWidth)
+                                .visualEffect { content, proxy in
+                                    content.colorEffect(ShaderLibrary.opArt(.float2(proxy.size), .float(6.0)))
+                                }
+                                .clipped()
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                            Text("Op Art")
+                        }
+                    }
+
                     NavigationLink {
                         SimpleCheckerboard()
                     } label: {

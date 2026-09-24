@@ -1,0 +1,21 @@
+//
+//  OpArt.swift
+//  Metal Shader Tester
+//
+//  Created by Charlie Minow on 9/24/26.
+//
+
+import SwiftUI
+
+struct OpArt: View {
+    var body: some View {
+        Color.red
+            .visualEffect { content, proxy in
+                content.colorEffect(ShaderLibrary.opArt(.float2(proxy.size), .float(16.0)))
+            }
+    }
+}
+
+#Preview {
+    OpArt()
+}
