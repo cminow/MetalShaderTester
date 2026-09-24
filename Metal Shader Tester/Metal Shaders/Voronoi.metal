@@ -10,14 +10,15 @@
 using namespace metal;
 
 [[stitchable]] half4 voronoiOrganic(
-                      float2 position,
-                      SwiftUI::Layer layer,
-                      float2 size,
-                      float time) {
+                    float2 position,
+                    SwiftUI::Layer layer,
+                    float2 size,
+                    float time,
+                    float cellScale) {
     float2 uv = position / size;
     float aspect = size.x / size.y;
     uv.x *= aspect;
-    float2 scaledUV = uv * 15.0;
+    float2 scaledUV = uv * cellScale;
 
     float2 gridID = floor(scaledUV);
     float2 gridUV = fract(scaledUV);
@@ -53,7 +54,7 @@ using namespace metal;
     }
 
     // Convert the feature point back out of scaledUV space into pixel space
-    float2 sampleUV = closestPointAbs / 15.0;
+    float2 sampleUV = closestPointAbs / cellScale;
     sampleUV.x /= aspect;              // undo the aspect correction you applied going in
     float2 samplePos = sampleUV * size;
     samplePos = clamp(samplePos, float2(0.5), size - float2(0.5)); // stay inside the layer bounds
