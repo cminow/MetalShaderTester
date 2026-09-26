@@ -14,6 +14,28 @@ struct ContentView: View {
         NavigationStack {
             HStack {
                 VStack(alignment: .leading, spacing: 4.0) {
+
+                    NavigationLink {
+                        SquarePixellateView()
+                    } label: {
+                        HStack {
+                            Image("roseImage")
+                                .resizable()
+                                .frame(width: thumbnailWidth, height: thumbnailWidth)
+                                .visualEffect { content, proxy in
+                                    content
+                                        .layerEffect(
+                                            ShaderLibrary.pixellateSquares(
+                                                .float2(proxy.size),
+                                                .float(20.0)
+                                            ), maxSampleOffset: .zero)
+                                }
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                            Text("Square Pixelization")
+                        }
+                        
+                    }
+
                     NavigationLink {
                         OpArt()
                     } label: {
@@ -105,6 +127,7 @@ struct ContentView: View {
                         }
                         
                     }
+
                     NavigationLink {
                         HexagonsView()
                     } label: {
