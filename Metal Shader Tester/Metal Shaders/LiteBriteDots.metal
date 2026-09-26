@@ -32,5 +32,8 @@ half4 liteBriteDots(float2 position, SwiftUI::Layer layer, float2 layerSize, flo
 
     half4 sampledColor = layer.sample(clampedCenter);
 
-    return sampledColor * coverage;
+    half4 background = half4(0, 0, 0, 1);
+    half4 dotColor = half4(sampledColor.rgb, 1.0);
+    
+    return mix(background, dotColor, half(coverage));
 }

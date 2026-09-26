@@ -14,8 +14,8 @@ struct LiteBriteDotsView: View {
                 .visualEffect { content, proxy in
                     content.layerEffect(ShaderLibrary.liteBriteDots(
                         .float2(proxy.size),
-                        .float(10.0), // dot radius
-                        .float(1.0), // fraction of the cell they fill
+                        .float(8.0), // dot radius
+                        .float(0.90), // fraction of the cell they fill
                         .float(0.0) // softness
                     ), maxSampleOffset: .zero)
                 }
