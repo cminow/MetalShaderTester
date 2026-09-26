@@ -16,6 +16,29 @@ struct ContentView: View {
                 VStack(alignment: .leading, spacing: 4.0) {
 
                     NavigationLink {
+                        LiteBriteDotsView()
+                    } label: {
+                        HStack {
+                            Image("roseImage")
+                                .resizable()
+                                .frame(width: thumbnailWidth, height: thumbnailWidth)
+                                .visualEffect { content, proxy in
+                                    content
+                                        .layerEffect(
+                                            ShaderLibrary.liteBriteDots(
+                                                .float2(proxy.size),
+                                                .float(6.0), // dot radius
+                                                .float(1.0), // fraction of the cell they fill
+                                                .float(0.0) // softness
+                                            ), maxSampleOffset: .zero)
+                                }
+                                .clipShape(RoundedRectangle(cornerRadius: 8))
+                            Text("Lite Brite Dots")
+                        }
+                        
+                    }
+                    
+                    NavigationLink {
                         SquarePixellateView()
                     } label: {
                         HStack {
