@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
-    private let thumbnailWidth: CGFloat = 40.0
+    private let thumbnailWidth: CGFloat = 48.0
     
     var body: some View {
         NavigationStack {
             HStack {
-                VStack(alignment: .leading, spacing: 4.0) {
-
+                List {
                     NavigationLink {
                         LiteBriteDotsView()
                     } label: {
@@ -279,7 +278,11 @@ struct ContentView: View {
                         }
                     }
                 }
-                .padding()
+                .listStyle(.plain)
+                .padding(.top, 40)
+                .clipped()
+                .edgesIgnoringSafeArea(.bottom)
+                
                 Spacer()
             }
             Spacer()
