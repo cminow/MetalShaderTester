@@ -8,8 +8,8 @@
 import SwiftUI
 
 extension View {
-    func hexPixellateLayer(scale: Float = 8, hexInset: Float = 0.95, softness: Float = 4.0) -> some View {
-        modifier(HexPixellateLayer(scale: scale, hexInset: hexInset, softness: softness))
+    func hexPixellateLayer(scale: Float = 8, hexInset: Float = 0.95, softness: Float = 4.0, gutterColor: Color =  .clear) -> some View {
+        modifier(HexPixellateLayer(scale: scale, hexInset: hexInset, softness: softness, gutterColor: gutterColor))
     }
 }
 
@@ -17,6 +17,7 @@ struct HexPixellateLayer: ViewModifier {
     let scale: Float
     let hexInset: Float
     let softness: Float
+    let gutterColor: Color
 
     func body(content: Content) -> some View {
         content.visualEffect { content, proxy in
@@ -25,7 +26,8 @@ struct HexPixellateLayer: ViewModifier {
                     .float2(proxy.size),
                     .float(scale),
                     .float(hexInset), // hex scale
-                    .float(softness)
+                    .float(softness),
+                    .color(gutterColor)
                 ),
                 maxSampleOffset: CGSize(width: Double(scale), height: Double(scale) * 1.7320508))
         }
@@ -35,8 +37,8 @@ struct HexPixellateLayer: ViewModifier {
 //==================//
 
 extension View {
-    func liteBriteLayer(dotRadius: Float = 8.0, cellFraction: Float = 1.0, softness: Float = 0.0) -> some View {
-        modifier(LiteBriteDotsLayer(dotRadius: dotRadius, cellFraction: cellFraction, softness: softness))
+    func liteBriteLayer(dotRadius: Float = 8.0, cellFraction: Float = 1.0, softness: Float = 0.0, backgroundColor: Color = .clear) -> some View {
+        modifier(LiteBriteDotsLayer(dotRadius: dotRadius, cellFraction: cellFraction, softness: softness, backgroundColor: backgroundColor))
     }
 }
 
@@ -44,6 +46,7 @@ struct LiteBriteDotsLayer: ViewModifier {
     let dotRadius: Float
     let cellFraction: Float
     let softness: Float
+    let backgroundColor: Color
     
     func body(content: Content) -> some View {
           content.visualEffect { content, proxy in
@@ -52,7 +55,8 @@ struct LiteBriteDotsLayer: ViewModifier {
                     .float2(proxy.size),
                     .float(dotRadius),
                     .float(cellFraction),
-                    .float(softness)
+                    .float(softness),
+                    .color(backgroundColor)
                 ), maxSampleOffset: .zero)
         }
     }

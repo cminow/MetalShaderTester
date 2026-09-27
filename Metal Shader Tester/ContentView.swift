@@ -29,7 +29,8 @@ struct ContentView: View {
                                                 .float2(proxy.size),
                                                 .float(6.0), // dot radius
                                                 .float(1.0), // fraction of the cell they fill
-                                                .float(0.0) // softness
+                                                .float(0.0), // softness
+                                                .color(.black)
                                             ), maxSampleOffset: .zero)
                                 }
                                 .clipShape(RoundedRectangle(cornerRadius: 8))
@@ -158,7 +159,7 @@ struct ContentView: View {
                             Rectangle()
                                 .fill(.green)
                                 .frame(width: thumbnailWidth, height: thumbnailWidth)
-                                .hexPixellateLayer(scale: 8)
+                                .hexPixellateLayer(scale: 8, gutterColor: .black.opacity(0.5))
                                 .clipShape(RoundedRectangle(cornerRadius: 8))
                             Text("Hexagons")
                         }

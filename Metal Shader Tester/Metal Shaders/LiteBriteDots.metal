@@ -10,7 +10,7 @@
 using namespace metal;
 
 [[ stitchable ]]
-half4 liteBriteDots(float2 position, SwiftUI::Layer layer, float2 layerSize, float scale, float dotSize, float softness) {
+half4 liteBriteDots(float2 position, SwiftUI::Layer layer, float2 layerSize, float scale, float dotSize, float softness, half4 bgColor) {
     
     float2 r = float2(1.0, 1.7320508) * scale;
     float2 h = r * 0.5;
@@ -29,11 +29,15 @@ half4 liteBriteDots(float2 position, SwiftUI::Layer layer, float2 layerSize, flo
     float coverage = 1.0 - smoothstep(inradius - feather, inradius + feather, d);
     
     float2 clampedCenter = clamp(center, float2(0.5), layerSize - float2(0.5));
+    float2 clampedPosition = clamp(position, float2(0.5), layerSize - float2(0.5));
 
-    half4 sampledColor = layer.sample(clampedCenter);
+    half4 sampledColor = layer.sample(clampedCenter);       // color for the dot
+    half4 originalAtPixel = layer.sample(clampedPosition);  // true backdrop at this pixel
 
-    half4 background = half4(0, 0, 0, 1);
-    half4 dotColor = half4(sampledColor.rgb, 1.0);
+    // Composite bgColor OVER the original content (both premultiplied)
+    half4 background = bgColor + originalAtPixel * (1.0h - bgColor.a);
+
+    half4 dotColor = half4(sampledColor.rgb, 1.0h);
     
     return mix(background, dotColor, half(coverage));
 }

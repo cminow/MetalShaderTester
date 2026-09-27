@@ -21,11 +21,11 @@ struct HexagonsView: View {
                     .fill(
                         LinearGradient(colors: [.black, .gray, .yellow], startPoint: .top, endPoint: .bottom)
                     )
-                    .hexPixellateLayer(scale: scale, hexInset: hexInset, softness: softness)
+                    .hexPixellateLayer(scale: scale, hexInset: hexInset, softness: softness, gutterColor: .black.opacity(0.25))
                     .clipped()
             } else {
                 Image("roseImage")
-                    .hexPixellateLayer(scale: scale, hexInset: hexInset, softness: softness)
+                    .hexPixellateLayer(scale: scale, hexInset: hexInset, softness: softness, gutterColor: .black)
                     .clipped()
             }
             

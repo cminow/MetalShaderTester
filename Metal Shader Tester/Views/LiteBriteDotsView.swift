@@ -15,7 +15,7 @@ struct LiteBriteDotsView: View {
     var body: some View {
         VStack {
             Image("roseImage")
-                .liteBriteLayer(dotRadius: dotRadius, cellFraction: cellFraction, softness: softness)
+                .liteBriteLayer(dotRadius: dotRadius, cellFraction: cellFraction, softness: softness, backgroundColor: .black.opacity(0.5))
 
             VStack(alignment: .leading) {
                 Text("Dot Radius: \(dotRadius.formatted(.number.precision(.fractionLength(2))))")
